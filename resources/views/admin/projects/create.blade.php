@@ -1,50 +1,65 @@
 @extends('admin.template')
+
+@section('title', 'Tambah Project')
+
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Tambah Project Baru</h4>
-                </div>
-                <div class="card-body">
-                    
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
 
-                    <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+<div class="card shadow-sm">
+    <div class="card-header bg-white">
+        <h5>Tambah Data Project</h5>
+    </div>
 
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Judul Project</label>
-                            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" required>
-                        </div>
+    <div class="card-body">
 
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" id="description" name="description" rows="5" required>{{ old('description') }}</textarea>
-                        </div>
+        <form action="{{ route('admin.projects.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
 
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Gambar Project</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                            <small class="text-muted">Format: jpeg, png, jpg, gif (Maks. 2MB)</small>
-                        </div>
+            @csrf
 
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary">Kembali</a>
-                    </form>
-
-                </div>
+            <div class="mb-3">
+                <label class="form-label">Judul Project</label>
+                <input type="text" name="title"
+                       class="form-control" required>
             </div>
-        </div>
+
+            <div class="mb-3">
+                <label class="form-label">Deskripsi</label>
+                <textarea name="description"
+                          class="form-control"
+                          rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Teknologi</label>
+                <input type="text" name="teknologi"
+                       class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Status</label>
+                <input type="text" name="status"
+                       class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Gambar Project</label>
+                <input type="file" name="image"
+                       class="form-control"
+                       accept="image/*">
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Simpan
+            </button>
+
+            <a href="{{ route('admin.projects.index') }}"
+               class="btn btn-secondary">
+                Kembali
+            </a>
+
+        </form>
     </div>
 </div>
+
 @endsection
