@@ -7,7 +7,10 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5>Data Project</h5>
-                    <a href="{{ route('admin.projects.create') }}" class="btn btn-primary">Tambah Data</a>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('admin.projects.pdf') }}" class="btn btn-danger" target="_blank">Export PDF</a>
+                        <a href="{{ route('admin.projects.create') }}" class="btn btn-primary">Tambah Data</a>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered w-100" id="tb_project">
@@ -38,6 +41,7 @@
                                 <td>{{ $project->teknologi }}</td>
                                 <td>{{ $project->status }}</td>
                                 <td>
+                                    <a href="{{ route('admin.projects.pdfSingle', $project->id) }}" class="btn btn-info btn-sm" target="_blank">Export PDF</a>
                                     <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                     <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah data ini akan dihapus?')">
                                         @csrf

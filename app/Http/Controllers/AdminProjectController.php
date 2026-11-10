@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Project;
 
 class AdminProjectController extends Controller
@@ -112,5 +113,25 @@ class AdminProjectController extends Controller
         $project->delete();
 
         return redirect()->route('admin.projects.index')->with('success', 'Data project berhasil dihapus!');
+    }
+
+    public function exportPdf()
+    {
+        $projects = Project::all();
+
+        $pdf = Pdf::loadView('admin.projects.pdf', compact('projects'))
+        ->setPaper('a4', 'landscape');
+            
+        return $pdf->stream('laporan-projects.pdf');
+    }
+
+    public function exportPdfById($id)
+    {
+        $project = Project::findOrFail($id);
+
+        $pdf = Pdf::loadView('admin.projects.pdf_single', compact('project'))
+        ->setPaper('a4', 'landscape');
+            
+        return $pdf->stream('laporan-project' . $project->id . '.pdf');
     }
 }

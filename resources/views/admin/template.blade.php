@@ -55,22 +55,41 @@ body {
 </style>
 
 <body>
-    <div class="admin-sidebar shadow">
-        <h4 class="text-center fw-bold text-white pb-3 border-bottom border-secondary">Admin Panel</h4>
-        <ul class="nav flex-column mt-3">
-            <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('admin.home') }}">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('admin.projects.index') }}">Project</a>
-            </li>
-        </ul>
+<div class="admin-sidebar shadow">
+    <h4 class="text-center fw-bold text-white pb-3 border-bottom border-secondary">
+        Admin Panel
+    </h4>
+
+    <ul class="nav flex-column mt-3">
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{{ route('admin.home') }}">
+                Dashboard
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{{ route('admin.projects.index') }}">
+                Project
+            </a>
+        </li>
+    </ul>
+
+    <div class="p-3 mt-4 border-top border-secondary">
+        <form action="{{ route('actionLogout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-danger px-4">
+                Logout
+            </button>
+        </form>
+    </div>
+</div>
+    </form>
     </div>
     <div class="admin-content">
         <div
             class="d-flex justify-content-between align-items-center pb-3 mb-4 border-bottom bg-white p-3 rounded shadow-sm">
             <h3 class="fw-bold mb-0">Dashboard</h3>
-            <span class="text-muted fw-semibold">Halo, Administrator</span>
+            <span class="text-muted fw-semibold">Halo, {{ Auth::user()->name }}</span>
         </div>
         @if (session('success'))
             <div class="alert alert-success" role="alert">
