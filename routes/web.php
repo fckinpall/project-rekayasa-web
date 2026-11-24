@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminProjectController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProjectController;
@@ -25,6 +26,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('admin.home');
     })->name('home');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('/projects/pdf', [AdminProjectController::class, 'exportPdf'])->name('projects.pdf');
     Route::get('projects/{id}/pdf', [AdminProjectController::class, 'exportPdfById'])->name('projects.pdfSingle');

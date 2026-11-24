@@ -14,15 +14,31 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::all();
+        return view('admin.users.index');
+    }
 
-        return response()->json(
-            [
-                'success' => true,
-                'message' => 'Data user berhasil diambil.',
-                'data' => $users,
-            ]
-        );
+    public function getData()
+    {
+        //
+        try {
+            $users = User::all();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Data user berhasil diambil.',
+                    'data' => $users,
+                ]
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Data user gagal dimuat.',
+                    'error' => $e->getMessage(),
+                ],
+            );
+        }
     }
 
     /**
